@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+h1 {text-align: center;}
+p {text-align: center;}
+div {text-align: center;}
+form {text-align: center;}
+input {text-align: center;}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Any Contents on This Page</title>
+    <body>
+        <h1>Current weather</h1>
+        <form action="{% url 'weather' %}" method="POST">
+            {% csrf_token %}
+            <label for="latitude">Latitude</label>
+            <input type="text" name="latitude" id="latitude">
+            <label for="longitude">Longitude</label>
+            <input type="text" name="longitude" id="longitude">
+            <input type="submit" value="submit">
+        </form>
+    </body>
+</head>
+<body>
+
+</body>
+</html>
