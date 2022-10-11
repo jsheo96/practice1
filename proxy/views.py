@@ -2,10 +2,15 @@ from django.shortcuts import render, redirect
 from .models import Location
 from .forms import LocationForm
 from .api import weather_location
+from django.http import JsonResponse
+from crawling import do_crawl
 # Create your views here.
 #def submit_view(request):
 #    return render(request, 'proxy/submit.html')
-
+def sealife_view(request):
+    data = do_crawl()
+    print(data)
+    return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
 def weather_view(request):
     if request.method == 'POST':
         form = LocationForm(request.POST)
