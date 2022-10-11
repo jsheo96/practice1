@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import traceback
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def get_text(soup):
     title = soup.find('th').text
@@ -14,8 +16,9 @@ def get_text(soup):
     return title, phone, content
     
 def do_crawl():
-    driver = webdriver.Chrome('./chromedriver')
+    driver = webdriver.Firefox()#'./chromedriver')
     data = {'data':[]}
+    delay = 5
     try:
         # 구글에 접속
         driver.get('https://www.sealife.go.kr/subject/support/list.do')
@@ -31,6 +34,7 @@ def do_crawl():
             if class_type == 'n1':
                 href = td.a.attrs['href']
                 driver.execute_script(href)
+                WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'contents')))
                 html = driver.page_source
                 soup = BeautifulSoup(html, 'html.parser')
                 title, phone, content = get_text(soup)
