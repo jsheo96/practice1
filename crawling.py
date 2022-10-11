@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import traceback
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium import webdriver
 
 def get_text(soup):
     title = soup.find('th').text
@@ -16,7 +17,13 @@ def get_text(soup):
     return title, phone, content
     
 def do_crawl():
-    driver = webdriver.Firefox()#'./chromedriver')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    driver = webdriver.Chrome(options=chrome_options)
+
+    #driver = webdriver.Firefox()#'./chromedriver')
     data = {'data':[]}
     delay = 5
     try:
