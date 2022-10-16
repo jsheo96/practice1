@@ -4,13 +4,21 @@ from .forms import LocationForm
 from .api import weather_location
 from django.http import JsonResponse
 from crawling import do_crawl
+from crawling import crawl_url_list
+
 # Create your views here.
 #def submit_view(request):
 #    return render(request, 'proxy/submit.html')
+
+def aqua_notice_view(request):
+    data = crawl_url_list()
+    return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
+
 def sealife_view(request):
     data = do_crawl()
     print(data)
     return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
+
 def weather_view(request):
     if request.method == 'POST':
         form = LocationForm(request.POST)
