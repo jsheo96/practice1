@@ -10,7 +10,10 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-
+import sys
+path = os.path.abspath(__file__+'/../..')
+if path not in sys.path:
+    sys.path.append(path)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Practice1.settings')
 
 application = get_wsgi_application()
