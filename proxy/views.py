@@ -5,7 +5,10 @@ from .api import weather_location
 from django.http import JsonResponse
 from crawling import do_crawl
 from crawling import crawl_url_list
-
+from rest_framework import viewsets
+from rest_framework import permissions
+from .models import Aquainfo
+from .serializers import AquainfoSerializer
 # Create your views here.
 #def submit_view(request):
 #    return render(request, 'proxy/submit.html')
@@ -48,3 +51,8 @@ def weather_view(request):
 def submit_view(request):
     form = LocationForm()
     return render(request, 'proxy/submit.html', {'form': form})
+
+class AquainfoViewSet(viewsets.ModelViewSet):
+    queryset = Aquainfo.objects.all()
+    serializer_class = AquainfoSerializer
+    # permission_classes = [permissions.AllowAny]

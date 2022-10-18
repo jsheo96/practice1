@@ -5,6 +5,20 @@ class Location(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
 
+class Aquainfo(models.Model):
+    date = models.DateTimeField()
+    days = models.IntegerField()
+    num = models.IntegerField()
+    average_weight = models.FloatField()
+    total_weight = models.FloatField()
+    biomass = models.FloatField()
+    survival_rate = models.FloatField()
+    feed = models.FloatField()
+    weekly_growth_rate = models.FloatField()
+    total_weight_increase = models.FloatField()
+    feed_conversion_rate = models.FloatField()
+    remarks = models.TextField()
+
 """
 class Sealife(models.Model):
     title = models.CharField(max_length=100)
