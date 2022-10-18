@@ -103,9 +103,7 @@ def crawl_table_by_selenium(url):
         data['data'].append({'title': title, 'date': date, 'full_link': link})
         assert prev_td_list == None or len(td_list) == len(prev_td_list), 'The table has inconsistent number of columns'
         prev_td_list = td_list
-    print(data)
     driver.quit()
-
     return data
 
 def crawl_table(url):
@@ -115,7 +113,10 @@ def crawl_table(url):
     :param url: URL of page where the table exists.
     :return: Dict[List[Dict[title, full_link, date]]]
     """
-    response = requests.get(url, verify=False)
+    s = requests.Session()
+    response = s.get(url, verify=False)
+    if 'jsessionid' in response.text:
+        response = s.get(url, verify=False)
     soup = BeautifulSoup(response.content, 'html.parser')
     tbody_list = soup.findAll('tbody') # choose
     # finds tbody with maximum number of tr's
@@ -131,13 +132,20 @@ def crawl_table(url):
         td_list = tr.findAll('td')
         td_texts = [td.text.strip().split('\n')[0] for td in td_list]
         href = tr.find('a').attrs['href']
+
+        if href.startswith('http'):
+            link = href
         # Case 1: Absolute path
-        if href.startswith('/'): # link is absolute path
+        elif href.startswith('/'): # link is absolute path
             link = '/'.join(url.split('/')[:3]) + href
         # Case 2: Relative path
+        elif href.startswith('?'):
+            link = url + href
         else:
             link = url.rsplit('/',1)[0] + '/' + href
+
         date = next(filter(lambda x: is_date(x), td_texts), None)
+        td_texts = list(filter(lambda x: not is_date(x), td_texts))
         assert date is not None, 'Cannot find the string for date'
         title = max(td_texts, key=lambda x:len(x))
         data['data'].append({'title': title, 'date': date, 'full_link': link})

@@ -1,4 +1,5 @@
-url_list = ['https://fish.gg.go.kr/noti/27',
+url_list = [
+            'https://fish.gg.go.kr/noti/27',
             'https://www.fipa.or.kr/sub3/?mn_idx=0003_0041_0043_&dp1=3&dp2=2&dp3=2',
             'https://www.nifs.go.kr/dokdo/bbs?id=notice',
             'https://www.mof.go.kr/article/list.do?menuKey=971&boardKey=10',
@@ -12,7 +13,8 @@ url_list = ['https://fish.gg.go.kr/noti/27',
             'https://www.moj.go.kr/moj/221/subview.do',
             'https://www.council.jeju.kr/notice/law.do',
             'https://kfishinfo.co.kr/kor/view.do?no=271',
-            'https://www.kimst.re.kr/u/news/notice_01/board.do',]
+            'https://www.kimst.re.kr/u/news/notice_01/board.do',
+]
 
 #TODO: below links are not parsable by the code
 #             'https://www.fira.or.kr/fira/fira_010201_2.jsp',

@@ -10,6 +10,10 @@ from crawling import crawl_url_list
 #def submit_view(request):
 #    return render(request, 'proxy/submit.html')
 
+def aqua_notice_page(request):
+    data = crawl_url_list()
+    return render(request, 'proxy/aqua_notice.html', data)
+
 def aqua_notice_view(request):
     data = crawl_url_list()
     return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
